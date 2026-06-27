@@ -36,6 +36,7 @@ add_library(kinplay_core STATIC
   src/core/joint.cpp
   src/core/mechanism.cpp
   src/core/jacobian.cpp
+  src/core/ik/dls.cpp
 )
 target_include_directories(kinplay_core PUBLIC ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(kinplay_core PUBLIC Eigen3::Eigen)

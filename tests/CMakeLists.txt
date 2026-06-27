@@ -22,3 +22,8 @@ add_executable(test_jacobian test_jacobian.cpp)
 target_link_libraries(test_jacobian PRIVATE kinplay_core GTest::gtest_main)
 target_compile_options(test_jacobian PRIVATE -Wall -Wextra -Wpedantic)
 gtest_discover_tests(test_jacobian)
+
+add_executable(test_ik_dls test_ik_dls.cpp)
+target_link_libraries(test_ik_dls PRIVATE kinplay_core GTest::gtest_main)
+target_compile_options(test_ik_dls PRIVATE -Wall -Wextra -Wpedantic)
+gtest_discover_tests(test_ik_dls)
