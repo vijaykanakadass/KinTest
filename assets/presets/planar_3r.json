@@ -1,0 +1,21 @@
+{
+  "name": "planar_3r",
+  "root_link": "base",
+  "links": [
+    { "name": "base",  "visual_length": 0.0 },
+    { "name": "link1", "visual_length": 1.0 },
+    { "name": "link2", "visual_length": 1.0 },
+    { "name": "link3", "visual_length": 1.0 },
+    { "name": "ee",    "visual_length": 0.0 }
+  ],
+  "joints": [
+    { "name": "q1", "type": "revolute", "parent": "base",  "child": "link1",
+      "axis": [0, 0, 1], "origin": { "xyz": [0, 0, 0] } },
+    { "name": "q2", "type": "revolute", "parent": "link1", "child": "link2",
+      "axis": [0, 0, 1], "origin": { "xyz": [1, 0, 0] } },
+    { "name": "q3", "type": "revolute", "parent": "link2", "child": "link3",
+      "axis": [0, 0, 1], "origin": { "xyz": [1, 0, 0] } },
+    { "name": "ee_fixed", "type": "fixed", "parent": "link3", "child": "ee",
+      "origin": { "xyz": [1, 0, 0] } }
+  ]
+}

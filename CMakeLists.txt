@@ -32,6 +32,16 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 set(EIGEN_BUILD_PKGCONFIG OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(Eigen3)
 
+# nlohmann/json 3.11.3 — tarball fetch (git clone is proxy-blocked). Used only
+# by the io layer for mechanism definition files; core stays json-free.
+FetchContent_Declare(
+  nlohmann_json
+  URL      https://codeload.github.com/nlohmann/json/tar.gz/refs/tags/v3.11.3
+  URL_HASH SHA256=0d8ef5af7f9794e3263480193c491549b2ba6cc74bb018906202ada498a79406
+)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+FetchContent_MakeAvailable(nlohmann_json)
+
 add_library(kinplay_core STATIC
   src/core/joint.cpp
   src/core/mechanism.cpp
@@ -42,8 +52,17 @@ target_include_directories(kinplay_core PUBLIC ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(kinplay_core PUBLIC Eigen3::Eigen)
 target_compile_options(kinplay_core PRIVATE -Wall -Wextra -Wpedantic)
 
+# io layer: mechanism JSON load/save + built-in presets. Depends on core and
+# nlohmann/json. Kept separate so core has no JSON dependency (§4).
+add_library(kinplay_io STATIC
+  src/io/mechanism_json.cpp
+  src/io/presets.cpp
+)
+target_link_libraries(kinplay_io PUBLIC kinplay_core PRIVATE nlohmann_json::nlohmann_json)
+target_compile_options(kinplay_io PRIVATE -Wall -Wextra -Wpedantic)
+
 add_executable(kinplay src/main.cpp)
-target_link_libraries(kinplay PRIVATE kinplay_core)
+target_link_libraries(kinplay PRIVATE kinplay_core kinplay_io)
 
 if(KINPLAY_BUILD_TESTS)
   enable_testing()

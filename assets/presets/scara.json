@@ -1,0 +1,24 @@
+{
+  "name": "scara",
+  "root_link": "base",
+  "links": [
+    { "name": "base",  "visual_length": 0.0 },
+    { "name": "link1", "visual_length": 1.0 },
+    { "name": "link2", "visual_length": 0.8 },
+    { "name": "link3", "visual_length": 0.0 },
+    { "name": "link4", "visual_length": 0.0 },
+    { "name": "ee",    "visual_length": 0.0 }
+  ],
+  "joints": [
+    { "name": "q1", "type": "revolute",  "parent": "base",  "child": "link1",
+      "axis": [0, 0, 1], "origin": { "xyz": [0, 0, 0] } },
+    { "name": "q2", "type": "revolute",  "parent": "link1", "child": "link2",
+      "axis": [0, 0, 1], "origin": { "xyz": [1, 0, 0] } },
+    { "name": "q3", "type": "prismatic", "parent": "link2", "child": "link3",
+      "axis": [0, 0, 1], "origin": { "xyz": [0.8, 0, 0] } },
+    { "name": "q4", "type": "revolute",  "parent": "link3", "child": "link4",
+      "axis": [0, 0, 1], "origin": { "xyz": [0, 0, 0] } },
+    { "name": "ee_fixed", "type": "fixed", "parent": "link4", "child": "ee",
+      "origin": { "xyz": [0, 0, 0] } }
+  ]
+}

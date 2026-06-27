@@ -27,3 +27,10 @@ add_executable(test_ik_dls test_ik_dls.cpp)
 target_link_libraries(test_ik_dls PRIVATE kinplay_core GTest::gtest_main)
 target_compile_options(test_ik_dls PRIVATE -Wall -Wextra -Wpedantic)
 gtest_discover_tests(test_ik_dls)
+
+add_executable(test_io test_io.cpp)
+target_link_libraries(test_io PRIVATE kinplay_io GTest::gtest_main)
+target_compile_options(test_io PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_definitions(test_io PRIVATE
+  KINPLAY_ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets")
+gtest_discover_tests(test_io)
