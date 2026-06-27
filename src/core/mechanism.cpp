@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <stdexcept>
+#include <string>
 
 namespace kp {
 
@@ -122,6 +123,86 @@ Mechanism make_planar_2r(double L1, double L2) {
   jee.child_link  = ee;
   jee.origin = Transform::Identity();
   jee.origin.translation() = Vec3(L2, 0.0, 0.0);
+  m.add_joint(jee);
+
+  return m;
+}
+
+namespace {
+// Helper: a revolute-Z joint from parent->child whose origin translates the
+// previous link's length along local X.
+Joint revolute_z(const std::string& name, int parent, int child, double x_off) {
+  Joint j;
+  j.name = name;
+  j.type = JointType::Revolute;
+  j.axis = Vec3::UnitZ();
+  j.parent_link = parent;
+  j.child_link  = child;
+  j.origin = Transform::Identity();
+  j.origin.translation() = Vec3(x_off, 0.0, 0.0);
+  return j;
+}
+}  // namespace
+
+Mechanism make_planar_3r(double L1, double L2, double L3) {
+  Mechanism m;
+  const int base  = m.add_link({"base",  0.0});
+  const int link1 = m.add_link({"link1", L1});
+  const int link2 = m.add_link({"link2", L2});
+  const int link3 = m.add_link({"link3", L3});
+  const int ee    = m.add_link({"ee",    0.0});
+  m.set_root_link(base);
+
+  m.add_joint(revolute_z("q1", base,  link1, 0.0));
+  m.add_joint(revolute_z("q2", link1, link2, L1));
+  m.add_joint(revolute_z("q3", link2, link3, L2));
+
+  Joint jee;
+  jee.name = "ee_fixed";
+  jee.type = JointType::Fixed;
+  jee.parent_link = link3;
+  jee.child_link  = ee;
+  jee.origin = Transform::Identity();
+  jee.origin.translation() = Vec3(L3, 0.0, 0.0);
+  m.add_joint(jee);
+
+  return m;
+}
+
+Mechanism make_scara(double L1, double L2) {
+  Mechanism m;
+  const int base  = m.add_link({"base",  0.0});
+  const int link1 = m.add_link({"link1", L1});
+  const int link2 = m.add_link({"link2", L2});
+  const int link3 = m.add_link({"link3", 0.0});  // carriage (prismatic output)
+  const int link4 = m.add_link({"link4", 0.0});  // tool flange
+  const int ee    = m.add_link({"ee",    0.0});
+  m.set_root_link(base);
+
+  // q1, q2: planar revolute-Z shoulder + elbow.
+  m.add_joint(revolute_z("q1", base,  link1, 0.0));
+  m.add_joint(revolute_z("q2", link1, link2, L1));
+
+  // q3: prismatic along Z, origin at the end of arm link 2.
+  Joint j3;
+  j3.name = "q3";
+  j3.type = JointType::Prismatic;
+  j3.axis = Vec3::UnitZ();
+  j3.parent_link = link2;
+  j3.child_link  = link3;
+  j3.origin = Transform::Identity();
+  j3.origin.translation() = Vec3(L2, 0.0, 0.0);
+  m.add_joint(j3);
+
+  // q4: revolute-Z tool spin, co-located with the carriage.
+  m.add_joint(revolute_z("q4", link3, link4, 0.0));
+
+  Joint jee;
+  jee.name = "ee_fixed";
+  jee.type = JointType::Fixed;
+  jee.parent_link = link4;
+  jee.child_link  = ee;
+  jee.origin = Transform::Identity();
   m.add_joint(jee);
 
   return m;

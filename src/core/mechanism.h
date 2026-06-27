@@ -59,4 +59,15 @@ class Mechanism {
 ///   y = L1 sin(q1) + L2 sin(q1+q2)
 Mechanism make_planar_2r(double L1, double L2);
 
+/// Built-in planar 3R arm, three revolute-Z joints (CLAUDE.md §8, Test 2).
+/// Redundant for position-only tasks. End-effector is the last link.
+///   x = L1 c1 + L2 c12 + L3 c123 ,  y = L1 s1 + L2 s12 + L3 s123
+Mechanism make_planar_3r(double L1, double L2, double L3);
+
+/// Built-in SCARA-like arm (CLAUDE.md §8, Test 3): Revolute-Z, Revolute-Z,
+/// Prismatic-Z, Revolute-Z. Exercises prismatic joint handling. The two
+/// revolute arm links have lengths L1, L2; the prismatic joint slides the tool
+/// along Z. End-effector is the last link.
+Mechanism make_scara(double L1, double L2);
+
 }  // namespace kp

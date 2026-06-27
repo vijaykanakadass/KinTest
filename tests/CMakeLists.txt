@@ -11,9 +11,14 @@ set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+include(GoogleTest)
+
 add_executable(test_fk test_fk.cpp)
 target_link_libraries(test_fk PRIVATE kinplay_core GTest::gtest_main)
 target_compile_options(test_fk PRIVATE -Wall -Wextra -Wpedantic)
-
-include(GoogleTest)
 gtest_discover_tests(test_fk)
+
+add_executable(test_jacobian test_jacobian.cpp)
+target_link_libraries(test_jacobian PRIVATE kinplay_core GTest::gtest_main)
+target_compile_options(test_jacobian PRIVATE -Wall -Wextra -Wpedantic)
+gtest_discover_tests(test_jacobian)
