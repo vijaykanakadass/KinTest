@@ -28,6 +28,11 @@ target_link_libraries(test_ik_dls PRIVATE kinplay_core GTest::gtest_main)
 target_compile_options(test_ik_dls PRIVATE -Wall -Wextra -Wpedantic)
 gtest_discover_tests(test_ik_dls)
 
+add_executable(test_dh test_dh.cpp)
+target_link_libraries(test_dh PRIVATE kinplay_core GTest::gtest_main)
+target_compile_options(test_dh PRIVATE -Wall -Wextra -Wpedantic)
+gtest_discover_tests(test_dh)
+
 add_executable(test_ik_ccd test_ik_ccd.cpp)
 target_link_libraries(test_ik_ccd PRIVATE kinplay_core GTest::gtest_main)
 target_compile_options(test_ik_ccd PRIVATE -Wall -Wextra -Wpedantic)

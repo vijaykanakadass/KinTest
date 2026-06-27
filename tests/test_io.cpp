@@ -10,6 +10,7 @@
 
 #include <gtest/gtest.h>
 
+#include "core/dh.h"
 #include "core/mechanism.h"
 #include "io/mechanism_json.h"
 #include "io/presets.h"
@@ -82,6 +83,15 @@ TEST(Io, LoadPlanar3RAndScara_MatchFactories) {
   ASSERT_TRUE(scara.has_value()) << err;
   expect_same_kinematics(*scara, kp::make_scara(1.0, 0.8),
                          {vec({0, 0, 0, 0}), vec({0.4, -0.6, 0.35, 0.9})});
+}
+
+TEST(Io, LoadUr5Like_MatchesDhFactory) {
+  std::string err;
+  auto loaded = kp::load_mechanism_json(asset("ur5_like.json"), &err);
+  ASSERT_TRUE(loaded.has_value()) << err;
+  expect_same_kinematics(*loaded, kp::make_ur5(),
+                         {vec({0, 0, 0, 0, 0, 0}),
+                          vec({0.4, -0.7, 1.1, 0.3, -0.9, 0.6})});
 }
 
 TEST(Io, RoundTripInMemory) {

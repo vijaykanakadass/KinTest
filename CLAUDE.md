@@ -102,6 +102,7 @@ kinplay/
 │   │   ├── link.h/.cpp
 │   │   ├── joint.h/.cpp         # Joint types + joint->Transform functions
 │   │   ├── mechanism.h/.cpp     # Tree container, FK traversal
+│   │   ├── dh.h/.cpp            # Standard-DH import helper (builds UR5 preset)
 │   │   ├── jacobian.h/.cpp      # Geometric Jacobian computation
 │   │   └── ik/
 │   │       ├── ik_solver.h      # Strategy interface
@@ -126,6 +127,7 @@ kinplay/
 ├── tests/
 │   ├── test_fk.cpp              # Forward kinematics against analytical cases
 │   ├── test_jacobian.cpp        # Jacobian against finite differences
+│   ├── test_dh.cpp             # DH import helper + UR5 6-DOF case
 │   ├── test_ik_dls.cpp
 │   ├── test_ik_ccd.cpp
 │   └── test_io.cpp

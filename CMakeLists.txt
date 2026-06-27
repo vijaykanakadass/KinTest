@@ -45,6 +45,7 @@ FetchContent_MakeAvailable(nlohmann_json)
 add_library(kinplay_core STATIC
   src/core/joint.cpp
   src/core/mechanism.cpp
+  src/core/dh.cpp
   src/core/jacobian.cpp
   src/core/ik/dls.cpp
   src/core/ik/ccd.cpp

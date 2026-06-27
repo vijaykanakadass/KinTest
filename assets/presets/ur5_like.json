@@ -1,0 +1,208 @@
+{
+  "joints": [
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link1",
+      "name": "q1",
+      "origin": {
+        "quat": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "xyz": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "parent": "base",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link2",
+      "name": "q2",
+      "origin": {
+        "quat": [
+          0.7071067811865475,
+          0.0,
+          0.0,
+          0.7071067811865476
+        ],
+        "xyz": [
+          0.0,
+          0.0,
+          0.089
+        ]
+      },
+      "parent": "link1",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link3",
+      "name": "q3",
+      "origin": {
+        "quat": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "xyz": [
+          -0.425,
+          0.0,
+          0.0
+        ]
+      },
+      "parent": "link2",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link4",
+      "name": "q4",
+      "origin": {
+        "quat": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "xyz": [
+          -0.392,
+          0.0,
+          0.0
+        ]
+      },
+      "parent": "link3",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link5",
+      "name": "q5",
+      "origin": {
+        "quat": [
+          0.7071067811865475,
+          0.0,
+          0.0,
+          0.7071067811865476
+        ],
+        "xyz": [
+          0.0,
+          0.0,
+          0.109
+        ]
+      },
+      "parent": "link4",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "link6",
+      "name": "q6",
+      "origin": {
+        "quat": [
+          -0.7071067811865475,
+          0.0,
+          0.0,
+          0.7071067811865476
+        ],
+        "xyz": [
+          0.0,
+          0.0,
+          0.095
+        ]
+      },
+      "parent": "link5",
+      "type": "revolute"
+    },
+    {
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "child": "ee",
+      "name": "ee_fixed",
+      "origin": {
+        "quat": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "xyz": [
+          0.0,
+          0.0,
+          0.082
+        ]
+      },
+      "parent": "link6",
+      "type": "fixed"
+    }
+  ],
+  "links": [
+    {
+      "name": "base",
+      "visual_length": 0.0
+    },
+    {
+      "name": "link1",
+      "visual_length": 0.0
+    },
+    {
+      "name": "link2",
+      "visual_length": -0.425
+    },
+    {
+      "name": "link3",
+      "visual_length": -0.392
+    },
+    {
+      "name": "link4",
+      "visual_length": 0.0
+    },
+    {
+      "name": "link5",
+      "visual_length": 0.0
+    },
+    {
+      "name": "link6",
+      "visual_length": 0.0
+    },
+    {
+      "name": "ee",
+      "visual_length": 0.0
+    }
+  ],
+  "name": "ur5_like",
+  "root_link": "base"
+}
